@@ -1,10 +1,10 @@
 require 'rack'
 
-app = Proc.new do |env|
+app = proc do |_env|
   [
-    200, 
-   {"Content type" => "text/plain"},
-   ["Helow Dolly\n"]
+    200,
+    { 'Content type' => 'text/plain' },
+    ["Helow Dolly\n"]
   ]
 end
 

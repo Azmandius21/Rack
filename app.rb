@@ -1,25 +1,21 @@
-class App
+require 'byebug'
 
+class App
   def call(env)
-    perform_request
-    [status, headers, body]
+    [status(env), headers, body]
   end
 
   private
 
-  def perform_request
-    sleep rand(2..3)
-  end
-
-  def status
+  def status(_env)
     200
   end
 
   def headers
-    {'Content type' => 'text/plain'}
+    { 'Content type' => 'text/plain' }
   end
 
   def body
-    ["Hellow App!\n"]
+    ["\n"]
   end
 end
