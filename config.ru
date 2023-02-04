@@ -1,8 +1,9 @@
-require_relative 'middleware/format_time'
-require_relative 'middleware/logger'
 require_relative 'app'
 
+map = {
+  '/time' => App.new
+}
+
 use Rack::Reloader, 0
-use AppLogger, logdev: File.expand_path('log/app.log', __dir__)
-use FormatTime
-run App.new
+use Rack::ContentType, 'text/plain'
+run Rack::URLMap.new(map)

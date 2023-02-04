@@ -1,21 +1,19 @@
-require 'byebug'
+require_relative 'format_time'
 
 class App
   def call(env)
-    [status(env), headers, body]
-  end
+    request = Rack::Request.new(env)
+    result = FormatTime.new(request)
 
-  private
+    if result.valid?
+      body = result.time
+      status = 200
+    else
 
-  def status(_env)
-    200
-  end
+      body = ["Unknown format: #{result.format_mistake}\n"]
+      status = 400
+    end
 
-  def headers
-    { 'Content type' => 'text/plain' }
-  end
-
-  def body
-    ["\n"]
+    Rack::Response.new(body, status, {}).finish
   end
 end
