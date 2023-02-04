@@ -1,5 +1,9 @@
-require_relative 'middleware/runtime'
 require_relative 'app'
 
-use Runtime
-run App.new
+map = {
+  '/time' => App.new
+}
+
+use Rack::Reloader, 0
+use Rack::ContentType, 'text/plain'
+run Rack::URLMap.new(map)
